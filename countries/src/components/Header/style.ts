@@ -11,6 +11,7 @@ export const HeaderStyled = styled.header`
     h3 {
         font-family: 'Monospace', sans-serif;
         font-size: 16px;
+        cursor: pointer;
     }
 `
 
@@ -21,6 +22,6 @@ export const DarkModeDiv = styled.div`
     width: 120px;
     font-size: 12px;
     font-family: 'Monospace', sans-serif;
-
+    cursor: pointer;
     
 `

@@ -15,13 +15,15 @@ export const Card = ({ name, svg, population, region, capital }: CardProps) => {
     const navigate = useNavigate()
     
     return (
-        <CardDiv onClick={() => navigate(`/country/${name}`)}>
+        <CardDiv onClick={() => navigate(`/country/${name.toLocaleLowerCase()}`)}>
             <img src={svg} alt='flag'/>
             <InfoDiv>
-                <h3>{name}</h3>
-                <p>Population: {population} </p>
-                <p>Region: {region}</p>
-                <p>Capital: {capital}</p>
+                <div>
+                    <h3>{name}</h3>
+                    <p>Population: {population} </p>
+                    <p>Region: {region}</p>
+                    <p>Capital: {capital}</p>
+                </div>
             </InfoDiv>
         </CardDiv>
     )

@@ -4,7 +4,7 @@ export const CardDiv = styled.div`
     width: 200px;
     height: 280px;
     background-color: #fff;
-    margin: 40px;
+    margin-top: 40px;
 
     img {
         width: 100%;
@@ -20,5 +20,18 @@ export const CardDiv = styled.div`
 `
 
 export const InfoDiv = styled.div`
-    padding: 20px;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 133.3px);
+    
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 70%;
+        max-width: 78%;
+        font-size: 14px; 
+}
 `
