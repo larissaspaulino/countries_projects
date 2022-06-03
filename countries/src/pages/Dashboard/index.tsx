@@ -13,19 +13,26 @@ export const Dashboard = ({ setCountries, countries }: RoutesProps) => {
 
     const [loading, setLoading] = useState(true)
     const [inputValue, setInputValue] = useState<string>('')
+    const [renderedList, setRenderedList] = useState<ServerData[]>([] as ServerData[])
+    const [errorMessage, setErrorMessage] = useState<string>('')
 
     useEffect(() => {
-        api
-         .get('/all?fields=name,population,region,capital,flags,subregion,languages,currencies,borders,tld')
-         .then((res: ServerResponse) => {
-             setCountries(res.data)
-             setLoading(false)
-            })
-         .catch(err => {
-            setCountries(err.message)
-            setLoading(false)
-         })
+        getCountries()
     },[])
+
+    const getCountries = () => {
+        api
+        .get('/all?fields=name,population,region,capital,flags,subregion,languages,currencies,borders,tld')
+        .then((res: ServerResponse) => {
+            setCountries(res.data)
+            setRenderedList(res.data)
+            setLoading(false)
+           })
+        .catch(err => {
+           setErrorMessage(err.message)
+           setLoading(false)
+        })
+    }
 
     const handleFilterByName = () => {
         setLoading(true)
@@ -33,29 +40,61 @@ export const Dashboard = ({ setCountries, countries }: RoutesProps) => {
             return country.name.common.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase().trim())
         } )
         if(countryObject.length === 0) {
-            setCountries("Country not found")
+            setErrorMessage("País não encontrado")
         } else {
-            setCountries(countryObject)
+            setRenderedList(countryObject)
         }
         setLoading(false)
+    }
+
+    const handleFilterByRegion = (region: string) => {
+        switch (region) {
+
+            case 'Todos':
+                setRenderedList(countries)
+                break;
+            
+            case 'Africa':
+                setRenderedList(countries.filter(country => country.region === region))
+                break;
+
+            case 'Americas':
+                setRenderedList(countries.filter(country => country.region === region))
+                break
+            
+            case 'Oceania':
+                setRenderedList(countries.filter(country => country.region === region))
+                break
+
+            case 'Europe':
+                setRenderedList(countries.filter(country => country.region === region))
+                break
+
+            case 'Asia':
+                setRenderedList(countries.filter(country => country.region === region))
+                break
+    
+            default:
+                break;
+        }
     }
     
     return (
         <> 
             <Header />
-            <InputArea handleFilterByName={handleFilterByName} inputValue={inputValue} setInputValue={setInputValue}  />
+            <InputArea handleFilterByName={handleFilterByName} inputValue={inputValue} setInputValue={setInputValue}  handleFilterByRegion={handleFilterByRegion} />
             { loading 
                 ?  <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '200px' }}>
                         <CircularProgress />
                     </Box>
                 :  
                 (
-                    typeof countries === "string" ?
-                        <ErrorMessage message={countries} />
+                    errorMessage ?
+                        <ErrorMessage message={errorMessage} />
                     :
 
                 <Container>
-                    {Array.isArray(countries) && countries.map((country) => (
+                    {renderedList.map((country) => (
                         <Card 
                             svg={country.flags.svg} 
                             name={country.name.common} 

@@ -45,11 +45,17 @@ export type por = {
 
 export type RoutesProps = {
     countries: ServerData[]
+    setCountries: (data: ServerData[]) => void
 }
 
 export type InputAreaProps = {
     inputValue: string
     setInputValue: (data: string) => void
-    handleFilterByName : () => void
+    handleFilterByName: () => void
+    handleFilterByRegion: (data: string) => void
+}
+
+export type CountryProps = {
+    countries: ServerData[]
 }
 

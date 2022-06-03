@@ -1,4 +1,4 @@
-import { RoutesProps, ServerData } from "../../types"
+import { CountryProps, ServerData } from "../../types"
 import { useEffect, useState } from "react"
 
 import { Container } from "./style"
@@ -7,7 +7,7 @@ import { ErrorMessage } from "../../components/ErrorMessage"
 import { Header } from "../../components/Header"
 import { useParams } from "react-router-dom"
 
-export const Country = ({ countries }: RoutesProps) => {
+export const Country = ({ countries }: CountryProps) => {
 
     const [country, setCountry] = useState<ServerData | string>('')
     

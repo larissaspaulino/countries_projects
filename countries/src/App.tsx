@@ -6,8 +6,7 @@ import { useState } from 'react'
 
 function App() {
 
-
-  const [countries, setCountries] = useState<ServerData[] | string>([] as ServerData[])
+  const [countries, setCountries] = useState<ServerData[]>([] as ServerData[])
   
   return (
     <>
